@@ -7,6 +7,8 @@ using WhitelistEntity = Content.Server.Database.Whitelist;
 
 namespace SS14.Admin.Pages.Whitelist;
 
+[Microsoft.AspNetCore.Authorization.Authorize(Roles = "BAN")]
+
 public class RemoveWhitelist : PageModel
 {
     private readonly PostgresServerDbContext _dbContext;

@@ -59,6 +59,7 @@ namespace SS14.Admin
                 options.Conventions.AuthorizeFolder("/Characters", "PirateStaff");
                 options.Conventions.AuthorizeFolder("/Whitelist", "PirateStaff");
                 options.Conventions.AuthorizePage("/Whitelist/AddWhitelist", "PirateWhitelist");
+                options.Conventions.AuthorizePage("/Whitelist/RemoveWhitelist", "PirateWhitelist");
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();

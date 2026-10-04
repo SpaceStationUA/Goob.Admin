@@ -17,7 +17,10 @@
 <partial name="Shared/StatusMessageAlert" />
 
 <div class="container mb-3">
-    <a class="btn btn-primary" asp-page="./AddWhitelist">Add player</a>
+    @if (User.IsInRole("BAN"))
+    {
+        <a class="btn btn-primary" asp-page="./AddWhitelist">Add player</a>
+    }
 </div>
 
 <form asp-page="./Index" method="get" class="container mb-3">
@@ -70,7 +73,10 @@
                     </small>
                 </td>
                 <td>
-                    <a asp-page="./RemoveWhitelist" asp-route-userId="@whitelist.UserId" class="btn btn-secondary">Remove</a>
+                    @if (User.IsInRole("BAN"))
+                    {
+                        <a asp-page="./RemoveWhitelist" asp-route-userId="@whitelist.UserId" class="btn btn-secondary">Remove</a>
+                    }
                 </td>
             </tr>
         }
