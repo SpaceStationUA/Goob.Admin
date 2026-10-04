@@ -88,6 +88,10 @@ public sealed class Info : PageModel
 
         async Task<IAdminRemarksCommon[]> RemarksCommonQuery<T>(IQueryable<T> query) where T : class, IAdminRemarksCommon
         {
+            // Pirate: web access must not bypass the game's note visibility permission.
+            if (!User.IsInRole("VIEWNOTES"))
+                return Array.Empty<IAdminRemarksCommon>();
+
             return await query
                 .Where(n => n.PlayerUserId == userId)
                 .Where(n => n.ExpirationTime == null || n.ExpirationTime > DateTime.UtcNow)

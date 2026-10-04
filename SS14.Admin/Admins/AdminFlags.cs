@@ -123,6 +123,15 @@
         ///     Lets you set the color of your OOC name.
         /// </summary>
         NameColor = 1 << 21,
+        // Pirate: keep flag names and bits aligned with the game server.
+        FullAdmin = 1 << 22,
+        Polls = 1 << 23,
+        MentorChat = 1 << 24,
+        EventChat = 1 << 25,
+        CentComChat = 1 << 26,
+        Mentorhelp = 1 << 27,
+        TempRanks = 1 << 28,
+
 
         /// <summary>
         ///     Dangerous host permissions like scsi.

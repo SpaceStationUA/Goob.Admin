@@ -34,16 +34,31 @@ namespace SS14.Admin
 
             services.AddDbContext<PostgresServerDbContext>(options => options.UseNpgsql(connStr));
 
+            // Pirate: mirror the game's staff, logs and whitelist permissions.
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("PirateStaff", policy => policy
+                    .RequireAuthenticatedUser()
+                    .RequireRole("ADMIN", "MODERATOR", "PERMISSIONS", "HOST"));
+                options.AddPolicy("PirateLogs", policy => policy
+                    .RequireRole("ADMIN", "MODERATOR", "PERMISSIONS", "HOST")
+                    .RequireRole("LOGS"));
+                options.AddPolicy("PirateWhitelist", policy => policy
+                    .RequireRole("ADMIN", "MODERATOR", "PERMISSIONS", "HOST")
+                    .RequireRole("BAN"));
+            });
+
             services.AddControllers();
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizeFolder("/Players");
-                options.Conventions.AuthorizeFolder("/Connections");
-                options.Conventions.AuthorizeFolder("/Bans");
-                options.Conventions.AuthorizeFolder("/RoleBans");
-                options.Conventions.AuthorizeFolder("/Logs");
-                options.Conventions.AuthorizeFolder("/Characters");
-                options.Conventions.AuthorizeFolder("/Whitelist");
+                options.Conventions.AuthorizeFolder("/Players", "PirateStaff");
+                options.Conventions.AuthorizeFolder("/Connections", "PirateStaff");
+                options.Conventions.AuthorizeFolder("/Bans", "PirateStaff");
+                options.Conventions.AuthorizeFolder("/RoleBans", "PirateStaff");
+                options.Conventions.AuthorizeFolder("/Logs", "PirateLogs");
+                options.Conventions.AuthorizeFolder("/Characters", "PirateStaff");
+                options.Conventions.AuthorizeFolder("/Whitelist", "PirateStaff");
+                options.Conventions.AuthorizePage("/Whitelist/AddWhitelist", "PirateWhitelist");
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();

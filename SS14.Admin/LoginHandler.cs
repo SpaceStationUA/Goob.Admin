@@ -38,7 +38,9 @@ namespace SS14.Admin
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(a => a.UserId == guid);
 
-            if (adminData == null)
+            // Pirate: mentor-only accounts and suspended staff must not enter the admin site.
+            if (adminData == null || adminData.Suspended ||
+                (AdminHelper.GetFlags(adminData) & (AdminFlags.Admin | AdminFlags.Moderator | AdminFlags.Permissions | AdminFlags.Host)) == 0)
             {
                 ctx.Response.Redirect(_linkGenerator.GetUriByPage(ctx.HttpContext, "/LoginFailed")!);
 
