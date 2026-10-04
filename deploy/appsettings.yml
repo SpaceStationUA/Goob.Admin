@@ -12,7 +12,6 @@ Serilog:
   Enrich: [FromLogContext]
 AllowedHosts: admin.troyeschina.space
 urls: http://127.0.0.1:27689/
-WebRootPath: /opt/pirate-admin/bin/wwwroot
 ForwardProxies:
   - 127.0.0.1
 AuthServer: https://auth.spacestation14.com

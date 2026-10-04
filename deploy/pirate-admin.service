@@ -8,7 +8,7 @@ Type=notify
 User=pirate-admin
 Group=pirate-admin
 WorkingDirectory=/opt/pirate-admin
-ExecStart=/usr/bin/dotnet /opt/pirate-admin/bin/SS14.Admin.dll
+ExecStart=/usr/bin/dotnet /opt/pirate-admin/bin/SS14.Admin.dll --webroot /opt/pirate-admin/bin/wwwroot
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=HOME=/var/lib/pirate-admin
 Restart=on-failure

@@ -8,3 +8,4 @@ riderModule.iml
 **/discord.xml
 
 *.user
+/.deploy-artifact/
