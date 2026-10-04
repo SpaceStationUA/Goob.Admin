@@ -1,0 +1,15 @@
+# Pirate admin: Apache retains port 80; use TLS-ALPN validation on 443.
+admin.troyeschina.space {
+    tls {
+        issuer acme {
+            disable_http_challenge
+        }
+    }
+
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        -Server
+    }
+    reverse_proxy 127.0.0.1:27689
+}

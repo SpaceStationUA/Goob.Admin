@@ -1,0 +1,26 @@
+[Unit]
+Description=Pirate Goob.Admin
+Wants=network-online.target
+After=network-online.target postgresql.service
+
+[Service]
+Type=notify
+User=pirate-admin
+Group=pirate-admin
+WorkingDirectory=/opt/pirate-admin
+ExecStart=/usr/bin/dotnet /opt/pirate-admin/bin/SS14.Admin.dll
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=HOME=/var/lib/pirate-admin
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+StateDirectory=pirate-admin
+StateDirectoryMode=0700
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

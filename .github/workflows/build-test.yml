@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,5 +21,11 @@ jobs:
           dotnet-version: 9.0.x
       - name: Install dependencies
         run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - name: Publish admin panel
+        run: dotnet publish SS14.Admin/SS14.Admin.csproj --configuration Release --no-restore --output publish
+      - name: Upload admin panel
+        uses: actions/upload-artifact@v4
+        with:
+          name: pirate-admin
+          path: publish/
+          retention-days: 7
